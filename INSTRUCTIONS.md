@@ -16,7 +16,7 @@ Our client, Prime Digital Academy: Room 2, has asked for an app to simulate the 
 
 ### Delete Items from the Shelf (Delete)
 
-[] An authenticated user should be able to delete items from the shelf.
+[X] An authenticated user should be able to delete items from the shelf.
 
 ## Stretch Goals
 
