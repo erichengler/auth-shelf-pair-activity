@@ -4,6 +4,7 @@ import './ShelfPage.css';
 
 function ShelfPage() {
   const [shelfList, setShelfList] = useState([]);
+  const [shelfItem, setShelfItem] = useState([]);
 
   useEffect(() => {
     fetchShelf();
@@ -18,8 +19,32 @@ function ShelfPage() {
     });
   }
 
+  const addItem = () => {
+    axios.post('/api/shelf', shelfItem).then(res => {
+        console.log(res.data);
+        fetchShelf();
+      }).catch(error => {
+        console.log(`Error in addItem: ${error}`);
+      });
+  }
+
+  const handleDescription = (event) => {
+    setShelfItem({ ...shelfItem, description: event.target.value});
+  }
+
+  const handleImageURL = (event) => {
+    setShelfItem({ ...shelfItem, image_url: event.target.value});
+  }
+
   return (
     <div className="container">
+      <h2>Add Item</h2>
+      <form onSubmit={addItem}>
+        <input onChange={handleDescription} type="text" placeholder="Description" />
+        <input onChange={handleImageURL} type="text" placeholder="Image URL" />
+        <input type="submit" />
+        <br /><br />
+      </form>
       <h2>Shelf</h2>
       <p>All of the available items can be seen here.</p>
       {
