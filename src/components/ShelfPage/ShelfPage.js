@@ -19,13 +19,23 @@ function ShelfPage() {
     });
   }
 
-  const addItem = () => {
+  const addItem = (event) => {
+    event.preventDefault();
     axios.post('/api/shelf', shelfItem).then(res => {
         console.log(res.data);
         fetchShelf();
       }).catch(error => {
         console.log(`Error in addItem: ${error}`);
       });
+  }
+
+  const deleteItem = (id) => {
+    console.log(id)
+    axios.delete(`/api/shelf/${id}`).then(res => {
+      fetchShelf();
+    }).catch(error => {
+      console.log(`Error in deleteItem: ${error}`);
+    });
   }
 
   const handleDescription = (event) => {
@@ -60,7 +70,10 @@ function ShelfPage() {
                         <br />
                         <div className="desc">{item.description}</div>
                         <div style={{textAlign: 'center', padding: '5px'}}>
-                          <button style={{cursor: 'pointer'}}>Delete</button>
+                          <button style={{cursor: 'pointer'}} 
+                            onClick={() => deleteItem(item.id)}>
+                            Delete
+                          </button>
                         </div>
                     </div>
                  </div>
